@@ -1,0 +1,16 @@
+{% extends 'main/base.html' %}
+
+{% block title %}
+    List of all ToDoList
+{% endblock %}
+
+{% block content %}
+    <h1>
+        {% if user.is_authenticated %}
+            {{ user | capfirst }}'s Todolists
+        {% endif %}
+    </h1>
+    {% for td in user.todolist.all %}
+        <p><a href="/{{td.id}}"> {{ td.name }}</a></p>
+    {% endfor %}
+{% endblock  %}

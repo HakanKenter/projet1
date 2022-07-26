@@ -1,0 +1,36 @@
+{% extends 'main/base.html' %}
+{% block title%} 
+    View List 
+{% endblock%}
+
+{% block content %}
+    <h1>{{todolists.name}}</h1>
+    <form method="POST" action="">
+        {% csrf_token %}
+            {% for task in todolists.task_set.all %}
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <div class="input-group-text">
+                        {% if task.complete == True %}
+                            <input type="checkbox" value="clicked" name="c{{ task.id }}" checked>
+                        {% else %}
+                            <input type="checkbox" value="clicked" name="c{{ task.id }}">
+                        {% endif %}
+                    </div>
+                </div>
+                <input type="text" value="{{task.text}}" class="form-control" >
+            </div>
+
+            {% endfor %}
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <button type="submit" name="newTask" value="newTask" class="btn btn-success">Add Task</button>
+                </div>
+                <input type="text" name="new">
+            </div>
+        <button type="submit" name="save" value="save" class="btn btn-success">Save</button>
+    </form>
+
+
+
+{% endblock %}
